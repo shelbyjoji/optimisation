@@ -1,0 +1,58 @@
+This is BibTeX, Version 0.99d (TeX Live 2016/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: main.aux
+The style file: amsrn.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: REF.bib.bib
+Name 1 in "Taha, H A," has a comma at the end for entry a5
+while executing---line 611 of file amsrn.bst
+Name 2 in "Juman, Z and Hoque M, and Buhari, M" has a comma at the end for entry a9
+while executing---line 611 of file amsrn.bst
+Name 2 in "Juman, Z and Hoque M, and Buhari, M" has a comma at the end for entry a9
+while executing---line 646 of file amsrn.bst
+Name 1 in "Taha, H A," has a comma at the end for entry a5
+while executing---line 646 of file amsrn.bst
+You've used 8 entries,
+            1497 wiz_defined-function locations,
+            465 strings with 3983 characters,
+and the built_in function-call counts, 6113 in all, are:
+= -- 244
+> -- 505
+< -- 3
++ -- 81
+- -- 469
+* -- 560
+:= -- 1162
+add.period$ -- 0
+call.type$ -- 8
+change.case$ -- 45
+chr.to.int$ -- 6
+cite$ -- 8
+duplicate$ -- 429
+empty$ -- 218
+format.name$ -- 42
+if$ -- 686
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 203
+newline$ -- 86
+num.names$ -- 16
+pop$ -- 444
+preamble$ -- 1
+purify$ -- 37
+quote$ -- 0
+skip$ -- 92
+stack$ -- 0
+substring$ -- 91
+swap$ -- 282
+text.length$ -- 56
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 66
+warning$ -- 0
+while$ -- 84
+width$ -- 0
+write$ -- 189
+(There were 4 error messages)

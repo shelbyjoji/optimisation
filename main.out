@@ -1,0 +1,11 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Algorithms to solve transportation problem \(Survey\)}{}% 2
+\BOOKMARK [1][-]{section.3}{Two Algorithms}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{The North West Corner Rule \(NWCR\)}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Vogel's Approximation Method \(VAM\)}{section.3}% 5
+\BOOKMARK [1][-]{section.4}{Comparison}{}% 6
+\BOOKMARK [2][-]{subsection.4.1}{Analytical comparison}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.2}{Run-time Comparison}{section.4}% 8
+\BOOKMARK [1][-]{section*.6}{Appendices}{}% 9
+\BOOKMARK [1][-]{Appendix.a.A}{Matlab Code for North West Corner Rule}{}% 10
+\BOOKMARK [1][-]{Appendix.a.B}{Matlab Code for Vogel's Approximation Method}{}% 11

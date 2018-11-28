@@ -1,0 +1,194 @@
+\documentclass[12pt]{article}
+\usepackage{enumitem}
+\usepackage[toc,page,header]{appendix}
+\renewcommand{\appendixpagename}{\centering Appendices}
+\usepackage{relsize,hyperref,mathtools,commath}
+\usepackage{float}
+\usepackage[export]{adjustbox}
+\usepackage{amsmath,amssymb,amsrefs,amsfonts,mathrsfs,amsthm,caption}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{definition}
+\newtheorem{exmp}{Example}[section]
+\usepackage[T1]{fontenc}
+\usepackage{subcaption}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\numberwithin{equation}{section}
+\usepackage{array}
+\newcolumntype{C}{@{}c@{}}
+\newcommand{\bottombox}[1]{\makebox[2em][r]{#1}\hspace*{\tabcolsep}\hspace*{2em}}%
+\newcommand{\innerbox}[2]{%
+    \begin{tabular}[b]{c|c}
+       \rule{2em}{0pt}\rule[-2ex]{0pt}{5ex} & \makebox[2em]{#2} \\\cline{2-2}
+       \multicolumn{2}{r}{{#1}\hspace*{1.5\tabcolsep}\hspace*{2em}\rule[-2ex]{0pt}{5ex}}
+    \end{tabular}}
+\renewcommand{\arraystretch}{1.25}
+
+\begin{document}
+\title{Computational analysis of Transportation Problem in MATLAB\\
+\begin{large} 
+MATH 3000 Final Project
+\end{large}}
+\author{Shelby Joji\\ID: 000722012\\ }
+\date{April 30, 2018}
+\maketitle
+
+\begin{abstract}
+Optimization methods in mathematics aims at finding out the best solution to a problem from several different alternatives. Through this research project, I have investigated a special type of optimization problem called transportation problem. Objective of every transportation problem is to minimize the cost of transportation by finding a feasible solution. After surveying four different approaches, I have chosen North west corner rule and Vogel’s approximation method for further analysis. Both algorithms were investigated mathematically and were implemented using MATLAB. In addition to it, a comparison of both methods was performed to further analyze the effectiveness in finding an optimal solution and thereby minimizing the cost. Algorithms were tested on 15 different transportation problems to compare the execution time. Comparisons were demonstrated in MATLAB plots. 
+\end{abstract}
+\pagebreak
+\section{Introduction}
+
+Transportation problem was first systematically formulated by an American mathematician named Frank Lauren Hitchcock\cite{a1}. During the same period, Tjalling Koopmans got involved in the same problem making the problem to be commonly referred as Hitchcock-Koopmans Transportation problem\cite{a1}. A general case of Transportation problem is as described below.
+
+\begin{definition}\label{def:1}
+ 
+ Consider m sources and n destinations. Let $s_{i}$ be the amount of supply available at the source $i$ and let $d_{j}$ be the demand of supply required at the destination $j$. Assume that $s_{i}, d_{j}>0$ and there exists a cost of transportation $c_{ij}$ for transporting supply from source $i$ to destination $j$ for every $i$ and $j$. In addition to it assume that the problem is balanced. Then,
+ \begin{equation}
+ \sum_{i=1}^{m}s_{i}= \sum_{j=1}^{n}d_{j}
+ \end{equation}
+ 
+ Let $x_{ij}$  be a non-negative integer that represents the number of supply transported from source $i$ to destination $j$. Under these, assumptions we can model the problem as
+ 
+ \begin{equation}
+ \begin{aligned}
+  Minimize \hspace{5mm} \sum_{i=1}^{m}\sum_{j=1}^{n} c_{ij}x_{ij} \hspace{29mm}\\ \vspace{4mm}
+ subject \hspace{1.5mm}to \hspace{4mm} \sum_{i=1}^{m} x_{ij} = d_{j} \hspace{2mm}\ni j=1,2,\dotsc,n\\ \vspace{1mm}
+ \sum_{i=1}^{n} x_{ij} = s_{i} \hspace{2mm}\ni i=1,2,\dotsc,m\\ \vspace{2mm}
+ x_{ij} \geq 0 \hspace{39mm}
+ \end{aligned}
+ \end{equation}
+ \end{definition}
+ 
+ Transportation problem has application in various industries ranging from optimizing public transportation system to formulating genetic algorithms\cite{a2}. Let us consider a simple example of general case transportation problem.
+ \begin{exmp}
+ Consider the case of a manufacturing industry with factories and warehouses. Each warehouse  requires certain supply of items from factories. We can formulate the problem in a transportation tableau with each cell containing cost of shipping from factory $i$ to warehouse $j$. 
+ 
+ \begin{tabular}{c|C|C|C|r}\hline
+          & Warehouse 1        & Warehouse 2      & Warehouse 3     & Supply  \\\hline
+   Factory 1 & \innerbox{}{2}   & \innerbox{}{7}   & \innerbox{}{4} &  5   \\\hline
+   Factory 2 & \innerbox{}{3} & \innerbox{}{3}   & \innerbox{}{1}   &  8   \\\hline
+   Factory 3 & \innerbox{}{5} & \innerbox{}{4}    & \innerbox{}{7}  &  7   \\\hline
+   Factory 4 & \innerbox{}{1} & \innerbox{}{6}    & \innerbox{}{2}  &  14   \\\hline
+   Demand & \bottombox{7}   & \bottombox{9}   & \bottombox{18} & 34  \\\hline
+   \end{tabular}
+
+ \end{exmp}
+ 
+ \section{Algorithms to solve transportation problem (Survey)}
+There are several approaches to find optimal cost transportation problem. In all such solution, we aims to find $m+n-1$ basic variables that satisfies all the constraints. Following are the algorithms to solve general case of a transportation problem\\
+
+\begin{enumerate}
+  
+  \item The North West Corner Rule (NWCR): In this method, there is exactly m+n-1 basic variables as solution.NWCR is simple and easy to implement. Method starts form the north west cell of tableau to assign basic variables and a row or column is increased with each iterations completing the required n umber of basic solutions. One disadvantage of this method is that it is not cost sensitive thereby providing poor solutions ans higher optimal costs\cite{a3}.
+  
+  \item Least cost Method (LCM): As the name states, LCM depend minimizing on the unit cost of transportation at each step. The algorithm calculates feasible solution by assigning as much possible supply on the cheapest route available. Once the assignment is made, it moves to the next cheapest route after updating the demand and supply. This method repeats until there exits no more supply or demand. Since LCM focuses on cost, we obtain better accurate solution compared to NWCR\cite{a4}. When multiple routes are found, LCM tend to break ties arbitrarily which result in no so accurate solutions\cite{a5}.
+  
+  \item Vogel's Approximation Method (VAM): In a sense, VAM is an improved version of LCM and not computationally simple compared to LCM. Approach is to calculate the penalties of row and column by taking the difference of lowest among the two minimum cost.In each iterations, cell is chosen by selecting largest penalties to ensure least cost. Therefore, VAM ensures minimum cost than LCM\cite{a6}. As complexity of computations involved increases, VAM consumes more time to deliver the result, 
+
+\item Best Candidate Method (BCM): Compared to VAM, BCM provides solution in least computational time and the optimal solution is at least better than VAM. It makes uses of fewer iteration and thereby saving computational time.  This method find best candidate having best combination of cost and supply for each row and column. Once the assignment is made, BCM looks for next best combination until all assignments are made\cite{a2}.
+
+\end{enumerate}
+
+\section{Two Algorithms}
+\subsection{The North West Corner Rule (NWCR)}
+Northwest corner rule is one of the basic and simple approach in solving a general case transportation problem. This method is useful for finding the initial basic feasible solution. The first cell or the northwest cell in the cost matrix is selected as the first assignment to allocate supplies\cite{a3}.
+
+\begin{itemize} 
+\item Select the Northwest cell $ij$ where $i=1$ and $j=1$
+\item Assign as many supplies from source $i$ to destination $j$ $\ni x_{ij} = min\big \{ s_{i},d_{j}\big \}$
+\item Update the supplies at the source $s_{i}$ as $s_{i}=s_{i}-x_{ij}$ and destinations as $d_{j}=d_{j}-x_{ij}$
+\item If $s_{i}=0$, then $i=i+1$ and if $d_{j}=0$, then $j=j+1$. Repeat the set for the next cell. 
+\end{itemize}
+
+Once the assignment is complete, there will be exactly m+n-1 basic feasible solution.  As we have seen in the above algorithm, NCWR  does not consider cost of transportation at any point which often results in poor solution and higher costs\cite{a8}. In fact NCWR serves as the starting point for more advance methods like Modified distribution algorithms (MODI)\cite{a8}.
+
+\begin{figure}[h]
+\includegraphics[width=100mm,scale=1]{NWCR.jpg}
+\caption{Pesudo-code for North West Corner Rule}
+\end{figure}
+
+\subsection{Vogel's Approximation Method (VAM)}
+VAM was proposed by W.R. Vogel in 1958  which is an improved version of minimum cost method\cite{a9}. This is considered as one of the best approaches in finding initial basic feasible solutions which obtain approximate optimal solutions. VAM uses the following steps.
+
+\begin{itemize}
+\item Calculate penalties for each row and column. Penalties are calculated by finding the difference between lowest and next lowest cost for each row and column.VAM allows to select same costs multiple times. Suppose h and k are cell number for the respective row and column. Let $P_{i}$ be row penalty and $P_{j}$ be column penalty. Then,
+$$P_{i}=\abs{c_{ih}-c_{ik}}$$
+$$P_{j}=\abs{c_{hj}-c_{kj}}$$
+\item Find the lowest cost among all $max\big \{p_{i},p_{j} \big \}$. If it is not unique find the cell with maximum allocation of $min\big \{s_{i},d_{j} \big \}.$
+\item Once the assignment is complete, adjust the $s_{i}$ and $d_{j}$. If the assignment is complete in either row or column, remove it from the cost matrix and repeat procedure until m+n-1 iterations are complete.
+
+\begin{figure}[h]
+\includegraphics[width=154mm,scale=1.5]{VAM.jpg}
+\caption{Pesudo-code for Vogel's Approximation Method }
+\end{figure}
+
+One drawback of Vogel's algorithm is that it does not ensure lowest cost in degenerate cases where there are similar higher penalties\cite{a6}. It can be improved by finding logical costs instead of settling for the first minimum cost but this tend to increases the complexity and run time of the problem.  
+
+\end{itemize}
+
+\section{Comparison}
+\subsection{Analytical comparison}
+As we have seen in the algorithms, NCWR does not consider cost matrix in computing the basic feasible solution. Whereas VAM allocates to least cost route by finding penalties.Therefore NCWR must yield higher optimal cost compared to VAM. \\
+
+\begin{table}[!htb]
+    \caption{Implementation of algorithms on example 1.1}
+    \begin{subtable}{.5\linewidth}
+      \centering
+        \caption{NCWR}
+        \scalebox{0.7}{
+  \begin{tabular}{C|C|C|r}\hline
+          
+    \innerbox{5}{2}   & \innerbox{}{7}   & \innerbox{}{4} &  5   \\\hline
+   \innerbox{2}{3} & \innerbox{6}{3}   & \innerbox{}{1}   &  8   \\\hline
+   \innerbox{}{5} & \innerbox{3}{4}    & \innerbox{4}{7}  &  7   \\\hline
+   \innerbox{}{1} & \innerbox{}{6}    & \innerbox{14}{2}  &  14   \\\hline
+  \bottombox{7}   & \bottombox{9}   & \bottombox{18} & 34  \\\hline
+   \end{tabular}}
+    \end{subtable}%
+    \begin{subtable}{.5\linewidth}
+      \centering
+        \caption{VAM}
+        \scalebox{0.7}{
+  \begin{tabular}{C|C|C|r}\hline
+          
+    \innerbox{3}{2}   & \innerbox{2}{7}   & \innerbox{}{4} &  5   \\\hline
+   \innerbox{}{3} & \innerbox{}{3}   & \innerbox{8}{1}   &  8   \\\hline
+   \innerbox{}{5} & \innerbox{7}{4}    & \innerbox{}{7}  &  7   \\\hline
+   \innerbox{4}{1} & \innerbox{}{6}    & \innerbox{10}{2}  &  14   \\\hline
+  \bottombox{7}   & \bottombox{9}   & \bottombox{18} & 34  \\\hline
+   \end{tabular}}
+    \end{subtable} 
+\end{table}
+
+On implementing both methods on the example 1.1, we obtain results as described in Table 1. With NCWR, we obtain an optimal cost of 102 meanwhile VAM yields a better solution with an optimal cost of 80. 
+
+\subsection{Run-time Comparison}
+I ran both NCWR and VAM on 15 randomly created general case transportation problem. We obtain the following results as plotted in MATLAB plot (Figure) given below.
+
+\begin{figure}[ht]
+\includegraphics[width=120mm,scale=1.5]{RUNCOMP.jpg}
+\caption{Runtime comparison of Northwest Corner Rule(NCWR) and Vogel's Approximation Method (VAM) }
+\end{figure}
+\bibliographystyle{plain}
+\bibliography{REF.bib}
+
+\begin{appendices}
+\section{Matlab Code for North West Corner Rule}
+\begin{figure}[H]
+\includegraphics[width=150mm,scale=1.5]{nwcr.jpg}
+\caption{Matlab implementation of NWCR }
+\end{figure}
+\vspace{5mm}
+\pagebreak
+
+\section{Matlab Code for Vogel's Approximation Method}
+\begin{figure}[H]
+\includegraphics[width=170mm,scale=1.5]{vam1.jpg}
+\caption{Matlab implementation of VAM }
+\end{figure}
+\end{appendices}
+\end{document}
+

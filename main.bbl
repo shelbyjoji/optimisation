@@ -1,0 +1,91 @@
+% \bib, bibdiv, biblist are defined by the amsrefs package.
+\begin{bibdiv}
+\begin{biblist}
+
+\bib{a3}{book}{
+      author={Bazaraa, M~S.},
+      author={Jarvis, J~J},
+      author={Sherali, H~D},
+       title={The transportation and assignment problems},
+   publisher={Wiley-Blackwell},
+        date={2011},
+        ISBN={9780471703778},
+  url={https://onlinelibrary.wiley.com/doi/abs/10.1002/9780471703778.ch1},
+}
+
+\bib{a6}{article}{
+      author={Das, Utpal},
+      author={Babu, Md.~Ashraful},
+      author={Khan, Aminur},
+      author={Abu~Helal, Md},
+      author={Uddin, Md},
+       title={Logical development of vogel’s approximation method (ld-vam):
+  An approach to find basic feasible solution of transportation problem},
+        date={201402},
+      volume={Volume 3},
+       pages={pp.42\ndash 48},
+}
+
+\bib{a1}{misc}{
+      author={Fulkerson, D~R},
+       title={Hitchcock transportation problem},
+         how={The Rand Corporation},
+        date={1956},
+        note={An optional note},
+}
+
+\bib{a2}{article}{
+      author={Hlayel, A},
+      author={Alia, M~A.},
+       title={Solving transportation problems using the best candidates
+  method},
+        date={201210},
+      volume={2},
+       pages={23\ndash 30},
+}
+
+\bib{a9}{article}{
+      author={Juman, Z},
+      author={M, Hoque},
+      author={Buhari, M},
+       title={A study of transportation problem and use of object oriented
+  programming},
+        date={201304},
+     journal={3rd International Conference on Applied Mathematics and
+  Pharmaceutical Sciences},
+       pages={353\ndash 354},
+}
+
+\bib{a8}{article}{
+      author={Klinz, Bettina},
+      author={J.~Woeginger, Gerhard},
+       title={The northwest corner rule revisited},
+        date={201107},
+      volume={159},
+       pages={1284\ndash 1289},
+}
+
+\bib{a5}{book}{
+      author={Taha, H~A},
+       title={Operations research an introduction},
+     edition={8},
+   publisher={Pearson Education, Inc.},
+     address={Upper Saddle River, NJ, 07458},
+        date={2007},
+        ISBN={0131889230},
+}
+
+\bib{a4}{article}{
+      author={Uddin, Md},
+      author={Khan, Aminur},
+      author={Kibria, Chowdhury},
+      author={Raeva, Iliyana},
+       title={Improved least cost method to obtain a better ibfs to the
+  transportation problem},
+        date={201601},
+      volume={6},
+       pages={1\ndash 20},
+}
+
+\end{biblist}
+\end{bibdiv}
